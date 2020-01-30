@@ -1,0 +1,16 @@
+
+                <form>
+                    <label>
+                        Enter name and passwords
+                    </label>
+                    <br></br>
+                    <label>
+                        Name:<input /*value= {this.state.username} onChange = {this.handleUserName}*//>
+                    </label>
+                    <br></br>
+                    <label>
+                        Password:<input /* value= {this.state.password} onChange = {this.handleUserPass}*//>
+                   </label>
+                    <br></br>
+                    <input type="submit" value="Submit" onClick = {this.context.LogIn} />
+                </form>

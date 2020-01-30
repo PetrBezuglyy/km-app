@@ -4,6 +4,7 @@ import './App.css';
 import { ContextProvider } from './Context/contextProvider';
 import LoginForm from './Components/LoginForm';
 import MainPage from './Components/MainPage'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 class  App extends React.Component {
   constructor(props) {
@@ -18,12 +19,12 @@ class  App extends React.Component {
  render() {
   return (
     <ContextProvider>
-    <div className="App">
-     <MainPage {...this.props}/>
-
-
-<LoginForm {...this.props}/>
-    </div>
+      <Router>
+        <Switch>
+     <Route path ="/mainpage" exact component = {MainPage }/>
+     <Route path ="/" exact component = {LoginForm }/>
+    </Switch>
+    </Router>
     </ContextProvider>
   );
 }

@@ -6,25 +6,48 @@ class LoginForm extends React.Component {
     static contextType = AppContext;
     constructor(props){
         super(props);
+        this.logIn= this.logIn.bind(this)
 
     }//end of the constructor
+
+    logIn(){
+        this.context.LogIn('')
+        this.props.history.push('/mainpage')
+    }
+    
     render() {
         return !this.context.userLogged && 
-                <form>
-                    <label>
-                        Enter name and passwords
-                    </label>
-                    <br></br>
-                    <label>
-                        Name:<input /*value= {this.state.username} onChange = {this.handleUserName}*//>
-                    </label>
-                    <br></br>
-                    <label>
-                        Password:<input /* value= {this.state.password} onChange = {this.handleUserPass}*//>
-                    </label>
-                    <br></br>
-                    <input type="submit" value="Submit" onClick = {this.context.LogIn} />
-                </form>
+
+      
+  <div className="container">
+    <div className="row">
+      <div className="col-lg-10 col-xl-9 mx-auto">
+        <div className="card card-signin flex-row my-5">
+          <div className="card-img-left d-none d-md-flex">
+
+          </div>
+          <div className="card-body">
+            <h5 className="card-title text-center">Login</h5>
+            <form className="form-signin">
+              <div className="form-label-group">
+                <input type="text" id="inputUserame" className="form-control" placeholder="Username" required autofocus/>
+                <label for="inputUserame">Username</label>
+              </div>
+
+
+              <div className="form-label-group">
+                <input type="password" id="inputPassword" className="form-control" placeholder="Password" required/>
+                <label for="inputPassword">Password</label>
+              </div>
+
+              <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit" onClick = {this.logIn}>Log In</button>
+                
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
     }
 
 

@@ -7,17 +7,30 @@ class MainPage extends React.Component {
     static contextType = AppContext;
     constructor(props){
         super(props);
-
+        this.logOut= this.logOut.bind(this)
     }//end of the constructor
+
+    logOut(){
+        this.context.LogOut('') // we need to use context function inside the component function...
+        this.props.history.push('/') //... because we can push info to the routers from components only
+    }
     render() {
         return this.context.userLogged && 
-          <div>
-          <p1>
-                Welcome to the main page!
-            </p1>
-         <br/>
-            <button onClick = {this.context.LogOut} >LogOut button</button>
-            </div>
+        <div className="container">
+        
+              <div className="card-body">
+                <h5 className="card-title text-center">Welcome to the main page!</h5>
+        
+                  </div>
+                  <br/>
+
+                  <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit" onClick = {this.logOut}>Log Out</button>
+                    
+               
+              </div>
+          
+          
+      
     }
 
 

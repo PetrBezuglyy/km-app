@@ -24,6 +24,7 @@ constructor (props){
     LogIn(username){
         this.setState({username:username})
         this.setState({userLogged:true})
+        
     }
 
 render(){

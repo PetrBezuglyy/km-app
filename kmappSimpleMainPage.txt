@@ -1,0 +1,8 @@
+ <div>
+          <p1>
+                Welcome to the main page!
+            </p1>
+         <br/>
+       
+            <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit"  onClick = {this.context.LogOut}>Log Out</button>
+            </div>
