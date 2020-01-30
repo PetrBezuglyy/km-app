@@ -5,6 +5,8 @@ import { ContextProvider } from './Context/contextProvider';
 import LoginForm from './Components/LoginForm';
 import MainPage from './Components/MainPage'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import auth from './utils/auth'
+
 
 class  App extends React.Component {
   constructor(props) {
@@ -12,9 +14,13 @@ class  App extends React.Component {
     /*this.state ={
       userLogged: context.userLogged
     };*/
-    
+    this.state ={loginStatus: auth.checkLocalAuth()};
+    this.loginStatusUpdated= this.loginStatusUpdated.bind(this);
     };
 
+    loginStatusUpdated(loginStatus){
+      this.setState({loginStatus})
+    }
 
  render() {
   return (

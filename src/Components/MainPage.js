@@ -1,7 +1,6 @@
 import React from 'react';
 import {AppContext} from '../Context/contextProvider';
-
-
+import Navbar from './Navbar/Navbar'
 class MainPage extends React.Component {
     
     static contextType = AppContext;
@@ -14,13 +13,14 @@ class MainPage extends React.Component {
         this.context.LogOut('') // we need to use context function inside the component function...
         this.props.history.push('/') //... because we can push info to the routers from components only
     }
+
     render() {
         return this.context.userLogged && 
         <div className="container">
-        
+        <Navbar {...this.props}/>
               <div className="card-body">
                 <h5 className="card-title text-center">Welcome to the main page!</h5>
-        
+
                   </div>
                   <br/>
 

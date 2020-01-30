@@ -12,6 +12,7 @@ constructor (props){
 
     
     this.state ={
+        theme: "light",
         username:"",
         userLogged:false
      }
@@ -19,8 +20,11 @@ constructor (props){
 
     LogOut(){
         this.setState({userLogged:false})
+        
     }
-
+    toggleTheme(){
+        this.setState({theme: this.state.theme /*boolean syntax */==="light"?"dark":"light"})
+    }
     LogIn(username){
         this.setState({username:username})
         this.setState({userLogged:true})
@@ -40,3 +44,5 @@ render(){
 }
 
 }// end of a class
+
+export const ContextConsumer = AppContext.Consumer;

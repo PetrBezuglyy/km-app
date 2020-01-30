@@ -1,20 +1,46 @@
 import React from 'react';
 import {AppContext} from '../Context/contextProvider';
+import auth from './../utils/auth'
+
 
 class LoginForm extends React.Component {
     
     static contextType = AppContext;
     constructor(props){
         super(props);
-        this.logIn= this.logIn.bind(this)
-
+        this.handleUserName = this.handleUserName.bind(this);
+            this.handleUserPass = this.handleUserPass.bind(this);
+        //this.logIn= this.logIn.bind(this)
+        this.processLogin=this.processLogin.bind(this)
+        this.state = {show: !auth.checkLocalAuth()};
     }//end of the constructor
 
-    logIn(){
+    /*logIn(){
         this.context.LogIn('')
         this.props.history.push('/mainpage')
+    }*/
+
+
+    handleUserName(event){
+        this.setState({userName: event.target.value});
     }
-    
+ 
+    handleUserPass(event){
+        this.setState({userPass: event.target.value});
+    }
+
+    processLogin(event) {
+        if (auth.checkCredentials(this.state.userName,this.state.userPass)) {
+           // alert(this.state.userName + " is registered user.");
+            auth.storeAuth(this.state.userName, this.state.userPass);
+            this.context.LogIn(this.state.userName);
+            this.props.history.push('/mainpage')
+        } else {
+            alert("Wrong user");
+        }
+        event.preventDefault();
+    }
+
     render() {
         return !this.context.userLogged && 
 
@@ -30,17 +56,17 @@ class LoginForm extends React.Component {
             <h5 className="card-title text-center">Login</h5>
             <form className="form-signin">
               <div className="form-label-group">
-                <input type="text" id="inputUserame" className="form-control" placeholder="Username" required autofocus/>
+                <input type="text" id="inputUserame" className="form-control" placeholder="Username" required autofocus onChange = {this.handleUserName} />
                 <label for="inputUserame">Username</label>
               </div>
 
 
               <div className="form-label-group">
-                <input type="password" id="inputPassword" className="form-control" placeholder="Password" required/>
+                <input type="password" id="inputPassword" className="form-control" placeholder="Password" required onChange = {this.handleUserPass}/>
                 <label for="inputPassword">Password</label>
               </div>
 
-              <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit" onClick = {this.logIn}>Log In</button>
+              <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit" onClick = {this.processLogin}>Log In</button>
                 
             </form>
           </div>
