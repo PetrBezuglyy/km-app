@@ -6,14 +6,12 @@ import LoginForm from './Components/LoginForm';
 import MainPage from './Components/MainPage'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import auth from './utils/auth'
+import UsersList from './Components/UsersList'
 
 
 class  App extends React.Component {
   constructor(props) {
     super(props);
-    /*this.state ={
-      userLogged: context.userLogged
-    };*/
     this.state ={loginStatus: auth.checkLocalAuth()};
     this.loginStatusUpdated= this.loginStatusUpdated.bind(this);
     };
@@ -29,6 +27,7 @@ class  App extends React.Component {
         <Switch>
      <Route path ="/mainpage" exact component = {MainPage }/>
      <Route path ="/" exact component = {LoginForm }/>
+     <Route path ="/users" exact component = {UsersList }/>
     </Switch>
     </Router>
     </ContextProvider>

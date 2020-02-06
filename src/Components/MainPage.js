@@ -7,11 +7,17 @@ class MainPage extends React.Component {
     constructor(props){
         super(props);
         this.logOut= this.logOut.bind(this)
+        this.showUsersList= this.showUsersList.bind(this)
     }//end of the constructor
 
     logOut(){
         this.context.LogOut('') // we need to use context function inside the component function...
         this.props.history.push('/') //... because we can push info to the routers from components only
+    }
+
+    showUsersList(){
+       
+        this.props.history.push('/users')
     }
 
     render() {
@@ -24,6 +30,9 @@ class MainPage extends React.Component {
                   </div>
                   <br/>
 
+                  <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit" onClick = {this.showUsersList}>Show Users</button>
+
+                  <br/>
                   <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit" onClick = {this.logOut}>Log Out</button>
                     
                
