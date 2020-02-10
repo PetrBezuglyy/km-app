@@ -1,48 +1,92 @@
-import React, {createContext, Component} from 'react';
+import React from 'react';
+import { createContext } from "react";
+import Auth from '../utils/Auth';
 
-export const AppContext= createContext();
+export const AppContext = createContext();
 
+export class ContextProvider extends React.Component {
 
-export class ContextProvider extends Component{
+    constructor(props) {
+        super(props);
 
-constructor (props){
-    super (props);
-    this.LogOut= this.LogOut.bind(this);
-    this.LogIn= this.LogIn.bind(this);
-
+        this.state = {
+        userName: "",
+        userLogged: false, 
+        listOfUsers: [], 
+        originalUsers: [],
+        listofPosts:[],
+        choosenUser:""
     
-    this.state ={
-        theme: "light",
-        username:"",
-        userLogged:false
-     }
-    } //end of a constructor
-
-    LogOut(){
-        this.setState({userLogged:false})
-        
-    }
-    toggleTheme(){
-        this.setState({theme: this.state.theme /*boolean syntax */==="light"?"dark":"light"})
-    }
-    LogIn(username){
-        this.setState({username:username})
-        this.setState({userLogged:true})
-        
+    };
+        this.processLogout = this.processLogout.bind(this);
+        this.setUserLogged = this.setUserLogged.bind(this);
+        this.setUserName = this.setUserName.bind(this);
+        this.setListOfUsers = this.setListOfUsers.bind(this);
+        this.setOriginalUsers = this.setOriginalUsers.bind(this);
+        this.setListOfPosts= this.setListOfPosts.bind(this)
+        this.testMessage= this.testMessage.bind(this)
+        this.setChoosenUser=this.setChoosenUser.bind(this)
     }
 
-render(){
-    return (
-        <AppContext.Provider value =  {{
-            ...this.state,
-            LogOut:this.LogOut,
-            LogIn:this.LogIn
-        }}>
-            {this.props.children}
-        </AppContext.Provider>
-    )
+
+    processLogout(){
+        this.setState({userLogged: false, userName: ""});
+        Auth.removeUserCredentials();
+    }
+
+    setUserLogged(status){
+        this.setState({userLogged: status}); 
+        
+    }
+
+    setUserName(user){
+        this.setState({userName: user});
+    }
+
+    componentDidMount(){
+        Auth.checkLocalAuth() && this.setUserValues();
+    }
+   
+
+    setUserValues(){
+        this.setState({userLogged: true, userName: Auth.getUserName()});
+    }
+
+    setListOfUsers(list){
+        this.setState({listOfUsers: list});
+    }
+
+    setListOfPosts(list){
+        this.setState({listofPosts: list})
+    }
+    setOriginalUsers(list){
+        this.setState({originalUsers: list});
+    }
+    setChoosenUser(event){
+        this.setState({choosenUser:event.target.id})
+    }
+
+    testMessage(){
+        alert("Last user post is:")
+
+    }
+
+
+    render() {
+        return (
+            <AppContext.Provider
+                value={{ ...this.state, setUserLogged: this.setUserLogged, processLogout:this.processLogout, setUserName: this.setUserName,
+                    setListOfUsers: this.setListOfUsers, setOriginalUsers: this.setOriginalUsers,
+                    setListOfPosts:this.setListOfPosts,testMessage:this.testMessage,
+                    setChoosenUser: this.setChoosenUser}}
+            >
+
+                {this.props.children}
+
+            </AppContext.Provider>
+        );
+    }
+
 }
-
-}// end of a class
 
 export const ContextConsumer = AppContext.Consumer;

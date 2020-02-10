@@ -1,16 +1,18 @@
-import React, { useContext } from 'react';
-import {AppContext} from './../Context/contextProvider';
-import {withRouter} from 'react-router'
+import { ContextConsumer, AppContext } from "../context/ContextProvider"
+import React, { useContext } from "react";
+import { withRouter } from "react-router-dom";
 
-function LogOut(props){
 
-const LogOut= () =>{
-    context.LogOut();
-    props.history.push('/')
+function Logout(props) {
+    const processLogout = () => {
+        context.processLogout();
+        props.history.push("/");
+    }
+
+    const context = useContext(AppContext);
+    return (<button type="button" className="btn btn-primary" onClick={processLogout}>Logout</button>)
+    
+
 }
 
-    const context = useContext(AppContext) 
- return  <input type="button" value="Logout" onClick={LogOut}/>
-}
-
-export default withRouter(LogOut);
+export default withRouter(Logout);

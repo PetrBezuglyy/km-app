@@ -1,37 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
+import LoginForm from './components/LoginForm.js';
 import './App.css';
-import { ContextProvider } from './Context/contextProvider';
-import LoginForm from './Components/LoginForm';
-import MainPage from './Components/MainPage'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import auth from './utils/auth'
-import UsersList from './Components/UsersList'
+import { ContextProvider } from './context/ContextProvider';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Dashboard from "./components/Dashboard";
+import Auth from "./utils/Auth";
+import Users from "./components/Users";
+import Registration from './components/Registration'
+class App extends React.Component {
 
-
-class  App extends React.Component {
   constructor(props) {
     super(props);
-    this.state ={loginStatus: auth.checkLocalAuth()};
-    this.loginStatusUpdated= this.loginStatusUpdated.bind(this);
-    };
+    this.state = props;
+    
+  }
 
-    loginStatusUpdated(loginStatus){
-      this.setState({loginStatus})
-    }
 
- render() {
-  return (
-    <ContextProvider>
-      <Router>
-        <Switch>
-     <Route path ="/mainpage" exact component = {MainPage }/>
-     <Route path ="/" exact component = {LoginForm }/>
-     <Route path ="/users" exact component = {UsersList }/>
-    </Switch>
-    </Router>
-    </ContextProvider>
-  );
-}
+  render() {
+    return (
+      <ContextProvider>
+        <Router>
+          <Switch>
+            <Route path="/" exact component={LoginForm} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path= "/users" component={Users} />
+            <Route path= "/register" component={Registration} />
+          </Switch>
+        </Router>
+      </ContextProvider>
+    );
+  }
 }
 export default App;
